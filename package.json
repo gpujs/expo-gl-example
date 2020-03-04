@@ -1,0 +1,42 @@
+{
+  "name": "@gpujs/expo-gl-example",
+  "private": false,
+  "version": "1.0.0",
+  "description": "A GPU.js native example used with https://github.com/gpujs/expo-gl",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpujs/expo-gl-example.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gpujs/expo-gl-example/issues"
+  },
+  "homepage": "https://github.com/gpujs/expo-gl-example#readme",
+  "dependencies": {
+    "@gpujs/expo-gl": "^0.0.12",
+    "expo": "^36.0.2",
+    "expo-cli": "^3.13.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-native": "^0.61.5",
+    "react-native-screens": "^2.2.0",
+    "react-native-web": "^0.12.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@types/react": "~16.9.0",
+    "@types/react-native": "~0.60.23",
+    "babel-preset-expo": "~8.0.0",
+    "typescript": "~3.6.3"
+  }
+}
