@@ -27,7 +27,7 @@
     "expo-cli": "^3.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-native": "^0.61.5",
+    "react-native": "^0.62.3",
     "react-native-screens": "^2.2.0",
     "react-native-web": "^0.12.2"
   },
