@@ -24,6 +24,9 @@
     "@types/react": "~19.2.2",
     "typescript": "~6.0.3"
   },
+  "overrides": {
+    "node-gyp": "^11.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gpujs/expo-gl-example.git"
