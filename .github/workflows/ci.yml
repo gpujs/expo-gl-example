@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install packages
+        run: npm install
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Bundle
+        # Metro resolves and compiles every import, so this catches a broken
+        # @gpujs/expo-gl, a gpu.js that will not bundle for React Native, and
+        # version drift against the Expo SDK. It cannot catch anything that
+        # only shows up against a real GL context — that needs a device, which
+        # is what this app is for.
+        run: npm run bundle
