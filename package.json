@@ -12,11 +12,11 @@
     "bundle": "expo export --platform ios --output-dir /tmp/expo-gl-example-bundle"
   },
   "dependencies": {
-    "@gpujs/expo-gl": "github:gpujs/expo-gl",
+    "@gpujs/expo-gl": "^1.0.0",
     "expo": "~57.0.8",
     "expo-gl": "~57.0.2",
     "expo-status-bar": "~57.0.1",
-    "gpu.js": "github:gpujs/gpu.js#develop",
+    "gpu.js": "^2.19.8",
     "react": "19.2.3",
     "react-native": "0.86.0"
   },
