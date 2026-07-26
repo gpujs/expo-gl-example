@@ -64,16 +64,30 @@ export default function App() {
 
         stage = 3;
         update(stage, 'running');
-        const built = gpu.createKernel(function (a: number[][], b: number[][]) {
+        // Kernels must be written as strings here, not functions. React Native
+        // runs on Hermes, which discards function source — toString() returns
+        // "function name(a0, a1) { [bytecode] }" — and GPU.js compiles kernels
+        // by reading their source. Strings survive untouched.
+        const built = gpu.createKernel(`function kernelFunction(a, b) {
           let sum = 0;
-          for (let i = 0; i < 512; i++) {
+          for (let i = 0; i < ${SIZE}; i++) {
             sum += a[this.thread.y][i] * b[i][this.thread.x];
           }
           return sum;
-        }).setOutput([SIZE, SIZE]);
+        }`).setOutput([SIZE, SIZE]);
         update(stage, 'done', `${SIZE}x${SIZE} matrix multiply`);
 
-        if (!cancelled) setKernel(() => built);
+        if (cancelled) return;
+        setKernel(() => built);
+
+        // run once immediately: a diagnostic that needs a tap before it tells
+        // you anything is a poor diagnostic
+        stage = 4;
+        update(stage, 'running');
+        const { output, elapsed } = runOnce(built);
+        setMilliseconds(elapsed);
+        setResult(`${output.length}x${output[0].length}, [0][0] = ${output[0][0].toFixed(4)}`);
+        update(stage, 'done', `${elapsed} ms`);
       } catch (error: any) {
         if (!cancelled) update(stage, 'failed', String(error?.message ?? error));
       }
@@ -86,11 +100,7 @@ export default function App() {
     if (!kernel) return;
     update(4, 'running');
     try {
-      const a = Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.random()));
-      const b = Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.random()));
-      const start = Date.now();
-      const output = kernel(a, b) as number[][];
-      const elapsed = Date.now() - start;
+      const { output, elapsed } = runOnce(kernel);
       setMilliseconds(elapsed);
       setResult(`${output.length}x${output[0].length}, [0][0] = ${output[0][0].toFixed(4)}`);
       update(4, 'done', `${elapsed} ms`);
@@ -129,6 +139,14 @@ export default function App() {
       ) : null}
     </View>
   );
+}
+
+function runOnce(kernel: (...args: any[]) => any) {
+  const a = Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.random()));
+  const b = Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.random()));
+  const start = Date.now();
+  const output = kernel(a, b) as number[][];
+  return { output, elapsed: Date.now() - start };
 }
 
 function marker(state: StageState) {

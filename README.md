@@ -7,13 +7,21 @@ GPU through [`@gpujs/expo-gl`](https://github.com/gpujs/expo-gl).
 
 ## Running it
 
+This needs a **development build**, not Expo Go. Expo Go on the App Store tracks
+an older SDK and cannot open an SDK 57 project.
+
 ```sh
 npm install
-npx expo start
+npx expo run:ios      # or: npx expo run:android
 ```
 
-Then open it on a device or simulator (`i` for iOS, `a` for Android). Expo Go is
-enough — no custom native build is required.
+That prebuilds the native project, compiles it, and installs it on a connected
+device or simulator. iOS needs Xcode and a signing identity; the first build
+takes several minutes, later ones are quick.
+
+On a simulator the GPU is emulated in software, so kernels are correct but
+extremely slow — a 512x512 multiply took ~28 seconds on an iPhone 17 Pro
+simulator versus **71 ms on the physical device**. Benchmark on hardware.
 
 The app is deliberately a **diagnostic** rather than a minimal demo. It reports
 each stage separately:
@@ -27,6 +35,13 @@ each stage separately:
 
 If something breaks, the failing stage and its error appear on screen, which is
 far more useful in a bug report than "it didn't work".
+
+## Kernels are strings here
+
+React Native runs on Hermes, which discards function source, so a kernel written
+as a function cannot be compiled — see
+[@gpujs/expo-gl](https://github.com/gpujs/expo-gl#kernels-must-be-strings). This
+app passes its kernel as a template string for that reason.
 
 ## Web is not supported
 
