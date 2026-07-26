@@ -16,7 +16,7 @@
     "expo": "~57.0.8",
     "expo-gl": "~57.0.2",
     "expo-status-bar": "~57.0.1",
-    "gpu.js": "^2.19.6",
+    "gpu.js": "github:gpujs/gpu.js#develop",
     "react": "19.2.3",
     "react-native": "0.86.0"
   },
