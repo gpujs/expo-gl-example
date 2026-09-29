@@ -18,7 +18,7 @@
     "expo-status-bar": "~57.0.1",
     "gpu.js": "^2.19.9",
     "react": "19.2.3",
-    "react-native": "0.86.0"
+    "react-native": "0.86.3"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
