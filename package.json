@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "@gpujs/expo-gl": "^1.0.0",
-    "expo": "~57.0.8",
-    "expo-gl": "~57.0.2",
-    "expo-status-bar": "~57.0.1",
+    "expo": "~58.0.22",
+    "expo-gl": "~58.0.4",
+    "expo-status-bar": "~58.0.4",
     "gpu.js": "^2.19.9",
-    "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react": "19.3.0",
+    "react-native": "0.88.1"
   },
   "devDependencies": {
-    "@types/react": "~19.2.2",
+    "@types/react": "~19.3.0",
     "typescript": "~6.0.3"
   },
   "overrides": {
